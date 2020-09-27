@@ -1,8 +1,11 @@
 from os.path import join as join
 import os
 
+WEATHER_API = "http://api.openweathermap.org/data/2.5/weather?q=CITY_NAME&appid=API_KEY"
 SRC_DIR = os.path.dirname(os.path.abspath(__file__))
 RESOURCE_DIR = join(join(SRC_DIR, ".."), "resources")
+IMAGES_DIR = join(RESOURCE_DIR, "images")
+CARD_DIR = join(IMAGES_DIR, "cards")
 CONFIG_DIR = join(RESOURCE_DIR, "config")
 ADMINS = join(RESOURCE_DIR, "admins.json")
 RESPONSE_DIR = join(RESOURCE_DIR, "responses")
