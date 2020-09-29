@@ -33,9 +33,9 @@ def add_fragment(conn, author_id, name):
 
 
 def delete_fragment(conn, fragment_id):
-    sql = '''DELETE FROM AudioFragments WHERE AudioFragment.id like VALUES(?)'''
+    sql = '''DELETE FROM AudioFragments WHERE id like ?'''
     cur = conn.cursor()
-    cur.execute(sql, fragment_id)
+    cur.execute(sql, [str(fragment_id)])
     conn.commit()
 
 

@@ -21,6 +21,7 @@ def setup(_bot: discord.ext.commands.Bot):
     bot.add_command(join)
     bot.add_command(leave)
     bot.add_command(add_audio_fragment)
+    bot.add_command(delete_audio_fragment)
     bot.add_command(play_audio_fragment)
     bot.add_listener(on_voice_state_update, "on_voice_state_update")
 
@@ -133,3 +134,16 @@ async def play_audio_fragment(ctx: commands.Context, args=''):
             source=os.path.join(const.UPLOADED_AUDIO_DIR, str(fragment_id[0][0]) + '.wav'))
         audio = discord.PCMVolumeTransformer(audio, bot.volume)
         vc.play(audio)
+
+
+@commands.command(name="deletefragment")
+async def delete_audio_fragment(ctx: commands.Context, args=''):
+    if args is '':
+        return await ctx.send(str(ctx.message.author.mention) + ', please specify a name.')
+    conn = db_access.create_connection()
+    res = db_access.get_fragment_id_by_name(conn, args)
+    os.remove(os.path.join(const.UPLOADED_AUDIO_DIR, str(res[0][0]) + '.wav'))
+    db_access.delete_fragment(conn, res[0][0])
+    return await ctx.send(str(ctx.message.author.mention) + ' successfully deleted fragment ' + args + '\'.')
+
+
