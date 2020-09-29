@@ -4,12 +4,12 @@ from discord.ext import commands
 import discord.ext.tasks
 import src.const as const
 from src.config import Config
-#import src.db_access
+import src.db_access
 
 startup_extensions = ["commands.audio", "commands.general"]
 bot = commands.Bot(command_prefix='!', description="Minge")
 
-#src.db_access.create_db_if_not_exist()
+src.db_access.init_database()
 config = Config()
 
 
@@ -20,18 +20,6 @@ async def on_ready():
             f'{bot.user} is connected to the following guild:\n'
             f'{guild.name}(id: {guild.id})\n'
         )
-
-
-@bot.command(name="join")
-async def join(ctx: commands.Context):
-    channel = ctx.author.voice.channel
-    await channel.connect()
-
-
-@bot.command(name="leave")
-async def leave(ctx: commands.Context):
-    await ctx.voice_client.disconnect()
-
 
 
 try:
