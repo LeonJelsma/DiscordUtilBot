@@ -14,7 +14,29 @@ def init_database():
                                                                     "author_id" INTEGER, 
                                                                     "fragment_name" TEXT UNIQUE
                                                                 )''')
+    cursor.execute('''CREATE TABLE IF NOT EXISTS "Admins" (
+                                                                    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                                    "user_id" INTEGER UNIQUE
+                                                                )''')
+    cursor.execute('''CREATE TABLE IF NOT EXISTS "Responses" (
+                                                                    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                                    "response" TEXT UNIQUE
+                                                                )''')
+    cursor.execute('''CREATE TABLE IF NOT EXISTS "Keywords" (
+                                                                    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                                    "keyword" TEXT UNIQUE
+                                                                )''')
     conn.close()
+
+
+def create_connection():
+    """ create a database connection to a SQLite database """
+    conn = None
+    try:
+        conn = sqlite3.connect(const.DB_FILE)
+    except Error as e:
+        print(e)
+    return conn
 
 
 def get_fragment_id_by_name(conn, name):
@@ -39,11 +61,86 @@ def delete_fragment(conn, fragment_id):
     conn.commit()
 
 
-def create_connection():
-    """ create a database connection to a SQLite database """
-    conn = None
-    try:
-        conn = sqlite3.connect(const.DB_FILE)
-    except Error as e:
-        print(e)
-    return conn
+def get_all_keywords(conn):
+    sql = '''SELECT keyword FROM Keywords'''
+    cur = conn.cursor()
+    cur.row_factory = lambda cursor, row: row[0]
+    cur.execute(sql)
+    results = cur.fetchall()
+    return results
+
+
+def is_keyword(conn, keyword):
+    sql = '''SELECT id FROM Keywords WHERE keyword = ?'''
+    cur = conn.cursor()
+    cur.execute(sql, [str(keyword)])
+    results = cur.fetchall()
+    return len(results) > 0
+
+
+def add_keyword(conn, keyword):
+    sql = '''INSERT INTO Keywords(keyword) VALUES(?)'''
+    cur = conn.cursor()
+    cur.execute(sql, [str(keyword)])
+    conn.commit()
+
+
+def delete_keyword(conn, keyword):
+    sql = '''DELETE FROM Keywords WHERE keyword = ?'''
+    cur = conn.cursor()
+    cur.execute(sql, [str(keyword)])
+    conn.commit()
+
+
+def is_response(conn, response):
+    sql = '''SELECT id FROM Responses WHERE response = ?'''
+    cur = conn.cursor()
+    cur.execute(sql, [str(response)])
+    results = cur.fetchall()
+    return len(results) > 0
+
+
+def add_response(conn, response):
+    sql = '''INSERT INTO Responses(response) VALUES(?)'''
+    cur = conn.cursor()
+    cur.execute(sql, [str(response)])
+    conn.commit()
+
+
+def delete_response(conn, response):
+    sql = '''DELETE FROM Responses WHERE response = ?'''
+    cur = conn.cursor()
+    cur.execute(sql, [str(response)])
+    conn.commit()
+
+
+def get_all_responses(conn):
+    sql = '''SELECT response FROM Responses'''
+    cur = conn.cursor()
+    cur.row_factory = lambda cursor, row: row[0]
+    cur.execute(sql)
+    results = cur.fetchall()
+    return results
+
+
+def add_admin(conn, user_id):
+    sql = '''INSERT INTO Admins(user_id) VALUES(?)'''
+    cur = conn.cursor()
+    cur.execute(sql, [str(user_id)])
+    conn.commit()
+
+
+def is_admin(conn, user_id):
+    sql = '''SELECT id FROM Admins WHERE user_id = ?'''
+    cur = conn.cursor()
+    cur.execute(sql, [str(user_id)])
+    results = cur.fetchall()
+    return len(results) > 0
+
+
+def delete_admin(conn, user_id):
+    sql = '''DELETE FROM Admins WHERE user_id = ?'''
+    cur = conn.cursor()
+    cur.execute(sql, [str(user_id)])
+    conn.commit()
+

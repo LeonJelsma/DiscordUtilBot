@@ -1,6 +1,8 @@
 import discord.ext.commands as commands
 import discord
 
+from src import config, db_access
+
 
 async def join_if_not_in_channel(ctx: discord.ext.commands.Context, target_channel: discord.VoiceChannel) -> discord.voice_client.VoiceClient:
     voice = ctx.me.voice
@@ -23,6 +25,15 @@ async def join_if_not_in_channel(ctx: discord.ext.commands.Context, target_chann
                 con = await current_channel.connect()
                 await con.disconnect()
             return await target_channel.connect()
+
+
+def user_is_admin(user_id):
+    _config = config.Config()
+    if str(_config.owner_id) == str(user_id):
+        return True
+    else:
+        conn = db_access.create_connection()
+        return db_access.is_admin(conn, user_id)
 
 
 def write_bytes_io_to_file(filename, bytes_io):

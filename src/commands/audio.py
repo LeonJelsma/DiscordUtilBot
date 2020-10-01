@@ -16,7 +16,7 @@ bot: discord.ext.commands.Bot = None
 def setup(_bot: discord.ext.commands.Bot):
     global bot
     bot = _bot
-    bot.volume = 0.5
+    bot.volume = 1
     bot.add_command(play_audio)
     bot.add_command(join)
     bot.add_command(leave)
