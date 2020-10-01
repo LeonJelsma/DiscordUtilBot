@@ -7,7 +7,7 @@ from src.config import Config
 import src.db_access
 
 startup_extensions = ["src.commands.audio", "src.commands.general"]
-bot = commands.Bot(command_prefix='!', description="Minge")
+bot = commands.Bot(command_prefix='!', description="Util Bot")
 
 src.db_access.init_database()
 config = Config()
