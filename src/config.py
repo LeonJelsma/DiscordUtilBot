@@ -12,6 +12,10 @@ class Config:
         self.owner_id = ""
 
         if not self.config_exist():
+            try:
+                os.mkdir(const.CONFIG_DIR)
+            except FileExistsError:
+                pass
             self.create_config()
         config = json.loads(open(const.CONFIG_FILE, "r").read())
         self.read_properties(config)
