@@ -14,6 +14,16 @@ bot: discord.ext.commands.Bot = None
 
 
 def setup(_bot: discord.ext.commands.Bot):
+
+    try:
+        os.mkdir(const.AUDIO_DIR)
+    except FileExistsError:
+        pass
+    try:
+        os.mkdir(const.UPLOADED_AUDIO_DIR)
+    except FileExistsError:
+        pass
+
     global bot
     bot = _bot
     bot.volume = 1
