@@ -6,7 +6,7 @@ import src.const as const
 from src.config import Config
 import src.db_access
 
-startup_extensions = ["commands.audio", "commands.general"]
+startup_extensions = ["src.commands.audio", "src.commands.general"]
 bot = commands.Bot(command_prefix='!', description="Minge")
 
 src.db_access.init_database()

@@ -10,3 +10,5 @@ src/__pycache__/
 resources/audio/uploaded/
 
 resources/config/config.json
+
+*.pyc
