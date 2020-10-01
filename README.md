@@ -1,1 +1,1 @@
-MingeBot 2.0
+Utility bot for Discord
