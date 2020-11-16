@@ -5,6 +5,8 @@ import random
 import sqlite3
 from time import sleep
 import discord
+from discord import member
+
 try:
     from PIL import Image
 except ImportError:
@@ -190,3 +192,10 @@ async def read_image(ctx):
                     except IndexError:
                         await ctx.send("Image invalid")
                         pass
+
+
+@commands.command(name="scramble")
+async def scramble_nick(ctx):
+    name = ctx.author.name
+    scrambled = util.scramble_consonants(name)
+    await member.edit(nick=scrambled)

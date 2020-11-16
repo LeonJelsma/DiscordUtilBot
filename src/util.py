@@ -1,3 +1,6 @@
+import re
+from random import shuffle
+
 import discord.ext.commands as commands
 import discord
 
@@ -45,3 +48,35 @@ def write_bytes_io_to_file(filename, bytes_io):
     with open(filename, "wb") as outfile:
         # Copy the BytesIO stream to the output file
         outfile.write(bytes_io.getbuffer())
+
+
+def scramble_consonants(word):
+    length = len(word)
+    word = word.lower()
+    vowels = 'aeiou'
+    vowelsDict = {}
+    consonants = []
+    i = 0
+    for letter in word:
+        if letter in vowels:
+            vowelsDict[i] = letter
+        else:
+            consonants.append(letter)
+        i += 1
+    shuffle(consonants)
+
+
+    result = ""
+    i = 0
+    while length > 0:
+        if i in vowelsDict.keys():
+            result += vowelsDict[i]
+        elif len(consonants) > 0:
+            result += consonants.pop()
+        else:
+            pass
+        if i is 0:
+            result = result.upper()
+        i += 1
+        length -= 1
+    return result
