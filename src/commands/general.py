@@ -5,7 +5,6 @@ import random
 import sqlite3
 from time import sleep
 import discord
-from discord import member
 
 try:
     from PIL import Image
@@ -196,7 +195,7 @@ async def read_image(ctx):
 
 
 @commands.command(name="scramble")
-async def scramble_nick(ctx):
-    name = ctx.author.name
+async def scramble_nick(ctx, member: discord.Member):
+    name = member.nick
     scrambled = util.scramble_consonants(name)
     await member.edit(nick=scrambled)
