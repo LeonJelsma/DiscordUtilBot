@@ -38,6 +38,7 @@ def setup(_bot: discord.ext.commands.Bot):
     bot.add_command(delete_response)
     bot.add_command(add_keyword)
     bot.add_command(delete_keyword)
+    bot.add_command(scramble_nick)
     bot.add_listener(on_message, "on_message")
 
 
