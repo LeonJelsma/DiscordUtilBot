@@ -38,6 +38,7 @@ def setup(_bot: discord.ext.commands.Bot):
     bot.add_command(add_keyword)
     bot.add_command(delete_keyword)
     bot.add_command(scramble_nick)
+    bot.add_command(toggle_lamp)
     bot.add_listener(on_message, "on_message")
 
 
@@ -196,6 +197,14 @@ async def read_image(ctx):
 
 @commands.command(name="scramble")
 async def scramble_nick(ctx, member: discord.Member):
-    name = member.nick
+    name = member.display_name
     scrambled = util.scramble_consonants(name)
     await member.edit(nick=scrambled)
+
+
+@commands.command(name="togglelamp")
+async def toggle_lamp(ctx):
+    url = "LAMP_URL"
+    data = {"state": 1}
+    print(requests.post(url=url, data=json.dumps(data)).text)
+    await ctx.send("Lamp toggled!")
