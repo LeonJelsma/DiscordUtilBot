@@ -1,6 +1,6 @@
 <h1> Utility bot for Discord </h1>
 
-A Discord bot used for various generic functions. This was intended for private use, but I decided to make this repo open-source so anyone could use it and see how the bot works internally. The bot was made using Python 3.7.0. It utilizes a local SQLite database for storing an index to the .wav files added to the bot. This database is also used to store keywords, responses and admins. Two external API's are used to supply the bot with random cat facts and weather information. The weather API requires an API key to be used.
+A Discord bot used for various generic functions. This project was made for private use, but has been made public because of multiple requests. The bot was made using Python 3.7.0. It utilizes a local SQLite database for storing an index to the .wav files added to the bot. This database is also used to store keywords, responses and admins. Two external API's are used to supply the bot with random cat facts and weather information. The weather API requires an API key to be used.
 
 <ul>
   <li>Playing .wav files</li>
@@ -9,7 +9,7 @@ A Discord bot used for various generic functions. This was intended for private 
   <li>Pick playing cards</li>
   <li>Generate weather reports</li>
   <li>Respond keywords</li>
-  <li>More!</li>
+  <li>Some other stuff</li>
  </ul>
 
 
